@@ -1,0 +1,24 @@
+		.body {
+  			font-family: Arial;
+  			padding: 20px;
+  			background: #f1f1f1;
+  			background: white url("lib.jpg") no-repeat;
+		}
+		.demTable {
+			border:3px double #b29999;
+			border-collapse:collapse;
+			padding:5px;
+		}
+		.demTable th {
+			border:3px double #b29999;
+			padding:5px;
+			background: #cec0c0;
+			color: #313030;
+		}
+		.demTable td {
+			border:3px double #b29999;
+			text-align:center;
+			padding:5px;
+			background: #e9dddd;
+			color: #313030;
+		}

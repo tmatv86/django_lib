@@ -1,0 +1,170 @@
+{% extends 'index.html' %}
+{% load static %}
+<html>
+	{% block content %}
+<head>
+
+<style>
+		body {
+  			font-family: Arial;
+  			padding: 20px;
+  			background: #f1f1f1;
+  			background-image: url("lib.jpg");
+		}
+		.demTable {
+			border:3px double #b29999;
+			border-collapse:collapse;
+			padding:5px;
+		}
+		.demTable th {
+			border:3px double #b29999;
+			padding:5px;
+			background: #cec0c0;
+			color: #313030;
+		}
+		.demTable td {
+			border:3px double #b29999;
+			text-align:center;
+			padding:5px;
+			background: #e9dddd;
+			color: #313030;
+		}
+
+		.form {
+      		margin: 0 60px;
+      		background-color: transparent;
+      	}
+      	input[type=text], input[type=password] {
+			  width: clamp(150px, 70vw, 470px);
+			  height: 2.0rem;
+			  padding: 0 1.25rem;
+			  border: 1px solid $black;
+			  border-radius: 1px;
+			  margin: 0.125rem auto;
+			  transition: all 250ms;
+			  background-color: transparent;
+			  background-color: rgba(0,0,0,.5);
+			  color: #fff;
+			  font-size: 0.875em;
+		}
+		.domTable {
+		    border-collapse: collapse;
+			margin: 25px 0;
+			font-size: 0.9em;
+			font-family: sans-serif;
+			min-width: 400px;
+			box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+		}
+		.btn {
+            cursor: pointer;
+            border: 1px solid #3498db;
+            background-color: transparent;
+            height: 50px;
+            width: 200px;
+            color: #3498db;
+            font-size: 1.0em;
+            box-shadow: 0 6px 6px rgba(0, 0, 0, 0.6);
+        .ssList {
+            select { width: 400px; text-align-last:center; }
+        }
+        h4 {
+             color: "#FFFFFF";
+        }
+</style>
+</head>
+<body style="background-image: url('{% static 'img/lib.jpg' %}');">
+      {% if user.is_authenticated %}
+        <a href='/logout'><p align="center">Logout</p>t</a>
+      {% endif %}
+
+        <form method="POST" action="{% url 'show' %}">
+                {% csrf_token %}
+	<table align='center' class="demTable">
+		<thead>
+			<tr>
+				<th>Название</th>
+				<th>Автор</th>
+				<th>Жанр</th>
+				<th>Загружена</th>
+				<th>Доступна</th>
+                {% if user.is_authenticated %}
+                <th>Выбрать</th>
+                {% endif %}
+			</tr>
+		</thead>
+		<tbody>
+		{% for book in tablebook %}
+			<tr>
+				<td>{{ book.name }}</td>
+				<td>{{ book.author }}</td>
+				<td>{{ book.genre }}</td>
+				<td>{{ book.upload_date }}</td>
+				<td>{{ book.available }}</td>
+                {% if user.is_authenticated %}
+                <td><input type="checkbox" name="checks" value="{{ book.pk }}" id="chkval"></td>
+                {% endif %}
+		{% endfor %}
+		</tbody>
+	</table>
+            <p>
+            <div align="center">
+            <h4 align="center"><font size="2" color="white">Фильтр по жанру:</font></h4>
+                <select id="sel_id" value="sel_val" name="sel_name"  onchange="this.form.submit();">
+                    <option value="-1">--------</option>
+                    {% for id, genre in genres.items %}
+                    <option value="{{ id }}">{{ genre }} </option>
+                    {% endfor %}
+            </select>
+            </div>
+            {% if user.is_authenticated %}
+	<p align="center" style="color:white;">Добавить/Удалить книгу</p>
+    <table align="center" style="color:white;">
+            {% csrf_token %}
+            <tr>
+                <td>
+                    <label for="name">
+                        Название
+                    </label>
+                </td>
+                <td>{{ form.name }}
+                </td>
+            </tr>
+            <tr>
+                <td><label for="author">
+                        Автор
+                    </label>
+                </td>
+                <td>{{ form.author }}
+                </td>
+            </tr>
+            <tr>
+                <td><label for="genre">
+                        Жанр
+                    </label>
+                </td>
+                <td>{{ form.genre }}
+                </td>
+            </tr>
+            <tr>
+                <td><label for="available">
+                        Доступна
+                    </label>
+                </td>
+                <td>{{ form.available }}
+                </td>
+            </tr>
+            <tr>
+                    <td></td>
+                    <td><button align="center" name="Add" class="btn">Добавить</button>
+                    <button align="center" name="Delete" class="btn">Удалить</button></td>
+                    </td>
+            </tr>
+
+    </table>
+            {% endif %}
+        </form>
+	<!--<form align="center"  style="color:white;">{{ form }}</form>-->
+
+</body>
+</html>
+{% endblock %}

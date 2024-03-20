@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+
+{% load static %}
+<html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Online library</title>
+</head>
+<body style="background-image: url('{% static 'img/lib.jpg' %}');">
+{% if user.is_authenticated %}
+<h2 align="center" ><p style="color:white;">Добро пожаловать {{ user.username }} в онлайн библиотеку</p></h2>
+<h4 align="center"><p style="color:white;">Вы можете добавить/удалить или обновить книги</p></h4>
+{% else %}
+<h2 align="center" ><p style="color:white;">Добро пожаловать  <a href='/show'>гость</a> в онлайн библиотеку</p></h2>
+<h4 align="center"><p style="color:white;">Для добавления или удаления книг, пожалуйста, <a href='/login'>авторизуйтесь!</a></p></h4>
+<h4 align="center"><p style="color:white;">Или пройдите <a href='/register'>регистрацию</a></a></p></h4>
+{% endif %}
+
+{% block content %}
+{% endblock %}
+
+</body>
+</html>

@@ -1,0 +1,47 @@
+{% extends 'index.html' %}
+{% block content %}
+<head>
+	<style>
+	    body {
+            text-align: center;
+        }
+		h3 {
+			color: white;
+			align: center;
+			}
+		.form {
+      		margin: 0 60px;
+      		background-color: transparent;
+      	}
+      	input[type=text], input[type=password], input[type=email] {
+			  width: clamp(150px, 70vw, 470px);
+			  height: 2.0rem;
+			  padding: 0 1.25rem;
+			  border: 1px solid $black;
+			  border-radius: 1px;
+			  margin: 0.125rem auto;
+			  transition: all 250ms;
+			  background-color: transparent;
+			  background-color: rgba(0,0,0,.5);
+			  color: #fff;
+			  font-size: 0.875em;
+		}
+  		.btn {
+            cursor: pointer;
+            border: 1px solid #3498db;
+            background-color: transparent;
+            height: 50px;
+            width: 200px;
+            color: #3498db;
+            font-size: 1.0em;
+            box-shadow: 0 6px 6px rgba(0, 0, 0, 0.6);
+        }
+	</style>
+</head>
+<form align='center' method="POST" style="color:white;" novalidate>
+	{% csrf_token %}
+	<h2>Регистрация</h2>
+	{{ form.as_p }}
+		<button align='center' name="enter" class="btn">Регистрация</button>
+</form>
+{% endblock content %}
